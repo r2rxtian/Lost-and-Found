@@ -1,4 +1,4 @@
-import { createIcons, ArrowRightLeft, Backpack, Bell, BriefcaseBusiness, ChartNoAxesColumnIncreasing, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, CircleHelp, CircleMinus, Database, Ellipsis, Eye, GitCompareArrows, Glasses, Hand, ImageOff, ImageUp, KeyRound, Laptop, LayoutDashboard, ListFilter, LogOut, MapPin, Menu, NotebookTabs, Package, PackageOpen, Pencil, Plus, Search, Settings, ShieldCheck, ShoppingBag, Smartphone, Trash2, UserX, Users, WalletCards, X } from 'lucide';
+import { createIcons, ArrowRightLeft, Backpack, Bell, BriefcaseBusiness, CalendarDays, ChartNoAxesColumnIncreasing, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, CircleHelp, CircleMinus, ClipboardList, Database, Ellipsis, Eye, GitCompareArrows, Glasses, Hand, Heart, ImageOff, ImageUp, KeyRound, Laptop, LayoutDashboard, ListFilter, LogOut, MapPin, Menu, NotebookTabs, Package, PackageOpen, Pencil, Plus, Search, Settings, ShieldCheck, ShoppingBag, Smartphone, Trash2, UserX, Users, WalletCards, X } from 'lucide';
 import './styles/global.css';
 import './styles/components.css';
 import './styles/responsive.css';
@@ -10,7 +10,7 @@ import { escapeHtml, toast } from './utils.js';
 const app = document.querySelector('#app');
 const pageState = new Map();
 let user = null;
-const iconSet = { ArrowRightLeft, Backpack, Bell, BriefcaseBusiness, ChartNoAxesColumnIncreasing, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, CircleHelp, CircleMinus, Database, Ellipsis, Eye, GitCompareArrows, Glasses, Hand, ImageOff, ImageUp, KeyRound, Laptop, LayoutDashboard, ListFilter, LogOut, MapPin, Menu, NotebookTabs, Package, PackageOpen, Pencil, Plus, Search, Settings, ShieldCheck, ShoppingBag, Smartphone, Trash2, UserX, Users, WalletCards, X };
+const iconSet = { ArrowRightLeft, Backpack, Bell, BriefcaseBusiness, CalendarDays, ChartNoAxesColumnIncreasing, ChevronDown, ChevronLeft, ChevronRight, CircleAlert, CircleCheck, CircleHelp, CircleMinus, ClipboardList, Database, Ellipsis, Eye, GitCompareArrows, Glasses, Hand, Heart, ImageOff, ImageUp, KeyRound, Laptop, LayoutDashboard, ListFilter, LogOut, MapPin, Menu, NotebookTabs, Package, PackageOpen, Pencil, Plus, Search, Settings, ShieldCheck, ShoppingBag, Smartphone, Trash2, UserX, Users, WalletCards, X };
 window.refreshIcons = () => createIcons({ icons: iconSet, attrs: { 'aria-hidden': 'true' } });
 
 function route() { return location.hash.replace('#/','') || 'dashboard'; }
@@ -30,7 +30,7 @@ window.renderRoute = async () => {
   try {
     let page;
     if(current==='found-items')page=await foundPage(state,user);else if(current==='lost-items')page=await lostPage(state,user);else if(current==='matches')page=await matchesPage(state,user);else if(current==='claims')page=await claimsPage(state,user);else if(current==='dashboard')page=await dashboardPage(state,user);else page=await adminListPage(current,user);
-    app.innerHTML=layout(user,current,page.title,page.subtitle,page.html);bindLayout(window.go,logout);page.bind();window.refreshIcons();
+    app.innerHTML=layout(user,current,page.title,page.subtitle,page.html);bindLayout(window.go,logout);page.bind();window.refreshIcons();window.scrollTo(0,0);const sidebar=document.querySelector('#sidebar');if(sidebar)sidebar.scrollTop=0;
   } catch(error){if(error.status===401){user=null;return renderLogin();}app.innerHTML=layout(user,current,'Something went wrong','The page could not be loaded.',`<div class="panel empty-state"><i data-lucide="circle-alert"></i><h3>${escapeHtml(error.message)}</h3><button class="btn" data-retry>Try again</button></div>`);bindLayout(window.go,logout);document.querySelector('[data-retry]').addEventListener('click',window.renderRoute);window.refreshIcons();}
 };
 

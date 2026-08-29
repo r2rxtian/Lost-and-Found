@@ -1,6 +1,6 @@
-export function openModal(title, body, { wide = false } = {}) {
+export function openModal(title, body, { wide = false, fixed = false } = {}) {
   const root = document.querySelector('#modal-root');
-  root.innerHTML = `<div class="modal-backdrop"><section class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><h3 id="modal-title">${title}</h3><button class="modal-close" aria-label="Close dialog"><i data-lucide="x"></i></button></header><div class="modal-body">${body}</div></section></div>`;
+  root.innerHTML = `<div class="modal-backdrop"><section class="modal ${wide ? 'wide' : ''} ${fixed ? 'fixed-modal' : ''}" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><h3 id="modal-title">${title}</h3><button class="modal-close" aria-label="Close dialog"><i data-lucide="x"></i></button></header><div class="modal-body">${body}</div></section></div>`;
   const close = () => { root.innerHTML = ''; document.removeEventListener('keydown', escape); };
   const escape = (event) => { if (event.key === 'Escape') close(); };
   root.querySelector('.modal-close').addEventListener('click', close);

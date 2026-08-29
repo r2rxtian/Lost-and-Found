@@ -4,8 +4,8 @@ import { calculateMatch } from './matchingService.js';
 
 test('matching score awards exact fields and date proximity', () => {
   const result = calculateMatch(
-    { name: 'Black wallet', category: 'Wallet', color: 'Black', brand: 'Herschel', location: 'Cafeteria', date: '2026-08-29', description: 'cream patch' },
-    { name: 'Wallet', category: 'Wallet', color: 'Black', brand: 'Herschel', location: 'Cafeteria', date: '2026-08-29', description: 'black cream patch' }
+    { name: 'Blue document folder', category: 'Documents', color: 'Blue', brand: 'Archive', location: 'Records Office', date: '2026-08-29', description: 'white label' },
+    { name: 'Document folder', category: 'Documents', color: 'Blue', brand: 'Archive', location: 'Records Office', date: '2026-08-29', description: 'blue folder white label' }
   );
   assert.equal(result.category, 30);
   assert.equal(result.color, 20);
